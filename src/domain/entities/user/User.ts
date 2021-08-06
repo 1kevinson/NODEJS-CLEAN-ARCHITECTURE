@@ -1,43 +1,31 @@
-import { IUser } from "./builder/IUser";
-
 export class User {
 
-    private readonly IUser: IUser;
+    constructor(
+        private readonly _id: string,
+        private readonly _firstname: string,
+        private readonly _lastname: string,
+        private readonly _email: string,
+        private readonly _password: string,
+    ) { }
 
-    constructor() {
-        this.IUser = {
-            firstname: '',
-            lastname: '',
-            email: '',
-            password: ''
-        }
+    public get id(): string {
+        return this._id;
     }
 
-    firstname(firstname: string): User {
-        this.IUser.firstname = firstname;
-        return this;
+    public get password(): string {
+        return this._password;
     }
 
-    lastname(lastname:string): User{
-        this.IUser.lastname = lastname;
-        return this;
+    public get firstname(): string {
+        return this._firstname;
     }
 
-    email(email:string): User {
-        this.IUser.email = email;
-        return this;
+    public get email(): string {
+        return this._email;
     }
 
-    password(password:string):User {
-        this.IUser.password = password;
-        return this;
+    public get lastname(): string {
+        return this._lastname;
     }
 
-    build(): IUser {
-        return this.IUser;
-    }
-
-    getName(): string {
-        return this.IUser.firstname + this.IUser.lastname;
-    }
 }
