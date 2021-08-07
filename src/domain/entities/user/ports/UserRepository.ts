@@ -1,10 +1,12 @@
 import { User } from "../User";
 
-export interface IUserRepository {
+export interface UserRepository {
 
-    create(user: User): User;
+    create(user: User): User,
 
     findById(id: string): User | undefined;
+    
+    findByEmail(id: string): User | undefined;
 
     findAllUsers(): User[];
 }
