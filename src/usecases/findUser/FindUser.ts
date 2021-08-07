@@ -1,14 +1,9 @@
-import { IdGenerator } from "../../domain/entities/user/ports/IdGenerator";
-import { PasswordEncoder } from "../../domain/entities/user/ports/PasswordEncoder";
 import { UserRepository } from "../../domain/entities/user/ports/UserRepository";
 import { User } from "../../domain/entities/user/User";
 
 export class FindUser {
 
-    constructor(
-        private readonly repository: UserRepository,
-        private readonly idGenerator: IdGenerator,
-        private readonly passwordEncoder: PasswordEncoder) { }
+    constructor(private readonly repository: UserRepository) { }
 
     public findById(id: string): User | undefined {
         return this.repository.findById(id);

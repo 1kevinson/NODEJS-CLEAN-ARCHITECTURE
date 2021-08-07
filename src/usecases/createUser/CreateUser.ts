@@ -1,4 +1,3 @@
-import { deepEqual, deepStrictEqual } from "assert";
 import { UserAlreadyExistsException } from "../../domain/entities/user/exceptions/UserAlreadyExistsException";
 import { UserValidationException } from "../../domain/entities/user/exceptions/UserValidationException";
 import { IdGenerator } from "../../domain/entities/user/ports/IdGenerator";
@@ -14,7 +13,7 @@ export class CreateUser {
         private readonly idGenerator: IdGenerator,
         private readonly passwordEncoder: PasswordEncoder) { }
 
-    public create(user: User): User | undefined {
+    public async create(user: User): Promise<User> {
         if (!UserValidator.validateCreateUser(user)) {
             throw new UserValidationException('All user fields are not indicated!');
         }
@@ -31,7 +30,9 @@ export class CreateUser {
             this.passwordEncoder.encode(user.password + user.email)
         );
 
-        return this.repository.create(userTosave);
+        const createdUser = await this.repository.create(userTosave);
+
+        return createdUser;
     }
 
 }

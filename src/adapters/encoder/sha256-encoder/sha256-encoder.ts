@@ -6,4 +6,5 @@ export class Sha256Encoder implements PasswordEncoder {
     encode(password: string): string {
         return hash.sha256().update(password).digest('hex');
     }
+    
 }

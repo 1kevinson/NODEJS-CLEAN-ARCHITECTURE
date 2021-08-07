@@ -1,17 +1,18 @@
 import { UserRepository } from "../../domain/entities/user/ports/UserRepository";
 import { User } from "../../domain/entities/user/User";
+import { UuidGenerator } from "../id-generator/uuid/UuidGenerator";
 
-export class InMemoryRepository implements UserRepository {
+export class InMemoryUserRepository implements UserRepository {
 
-    private readonly inMemoryDatas: User[] = [];
+    private inMemoryDatas: User[] = [];
 
-    create(user: User): User {
+    async create(user: User): Promise<User> {
         this.inMemoryDatas.push(user);
         return user;
     }
 
     findById(id: string): User | undefined {
-        return this.inMemoryDatas.find(u => u.id === id);
+        return this.inMemoryDatas.find(u => u.id === new UuidGenerator().generate(id));
     }
 
     findByEmail(email: string): User | undefined {
@@ -19,7 +20,7 @@ export class InMemoryRepository implements UserRepository {
     }
 
     findAllUsers(): User[] {
-        return [...this.inMemoryDatas];
+        return this.inMemoryDatas;
     }
 
 }
