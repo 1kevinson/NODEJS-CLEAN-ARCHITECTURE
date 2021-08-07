@@ -1,4 +1,4 @@
-import { deepStrictEqual } from "assert";
+import { deepEqual, deepStrictEqual } from "assert";
 import { UserAlreadyExistsException } from "../../domain/entities/user/exceptions/UserAlreadyExistsException";
 import { UserValidationException } from "../../domain/entities/user/exceptions/UserValidationException";
 import { IdGenerator } from "../../domain/entities/user/ports/IdGenerator";
@@ -14,15 +14,14 @@ export class CreateUser {
         private readonly idGenerator: IdGenerator,
         private readonly passwordEncoder: PasswordEncoder) { }
 
-    public create(user: User): User {
+    public create(user: User): User | undefined {
         if (!UserValidator.validateCreateUser(user)) {
             throw new UserValidationException('All user fields are not indicated!');
         }
 
-        deepStrictEqual(
-            this.repository.findByEmail(user.email),
-            user,
-            new UserAlreadyExistsException(`user with email ${user.email} already exists`));
+        if (this.repository.findByEmail(user.email)?.email === user.email) {
+            throw new UserAlreadyExistsException(`user with email ${user.email} already exists`);
+        }
 
         var userTosave = new User(
             this.idGenerator.generate(user.id),

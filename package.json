@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start:dev": "nodemon",
-    "start": "npm run build && node build/index.js",
+    "start": "npm run build && node build/server.js",
     "build": "rimraf ./build && tsc",
     "test": "npx jest"
   },
@@ -34,6 +34,8 @@
     "express": "^4.17.1",
     "express-winston": "^4.1.0",
     "hash.js": "^1.1.7",
+    "hazelcast-client": "^4.2.0",
+    "lowdb": "^2.1.0",
     "node-notifier": "^10.0.0",
     "uuid-by-string": "^3.0.4",
     "winston": "^3.3.3"
