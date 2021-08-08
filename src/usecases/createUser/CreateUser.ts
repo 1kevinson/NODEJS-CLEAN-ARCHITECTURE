@@ -4,7 +4,7 @@ import { IdGenerator } from "../../domain/entities/user/ports/IdGenerator";
 import { PasswordEncoder } from "../../domain/entities/user/ports/PasswordEncoder";
 import { UserRepository } from "../../domain/entities/user/ports/UserRepository";
 import { User } from "../../domain/entities/user/User";
-import { UserValidator } from "../validators/UserValidator";
+import { UserValidator } from "../../configuration/validators/UserValidator";
 
 export class CreateUser {
 
@@ -18,7 +18,8 @@ export class CreateUser {
             throw new UserValidationException('All user fields are not indicated!');
         }
 
-        if ((await this.repository.findByEmail(user.email))?.email === user.email) {
+        if (this.repository.findAllUsers.length > 0 &&
+            (await this.repository.findByEmail(user.email))?.email === user.email) {
             throw new UserAlreadyExistsException(`user with email ${user.email} already exists`);
         }
 

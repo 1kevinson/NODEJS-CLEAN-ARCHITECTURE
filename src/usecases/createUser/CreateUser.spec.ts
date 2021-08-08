@@ -7,7 +7,6 @@ import { UuidGenerator } from "../../adapters/id-generator/uuid/UuidGenerator";
 import { PasswordEncoder } from "../../domain/entities/user/ports/PasswordEncoder";
 import { Sha256Encoder } from "../../adapters/encoder/sha256-encoder/sha256-encoder";
 import { CreateUser } from "./CreateUser";
-import { UserAlreadyExistsException } from "../../domain/entities/user/exceptions/UserAlreadyExistsException";
 
 let mockedUserRepository: UserRepository = mock(InMemoryUserRepository);
 let mockedIdGenerator: IdGenerator = mock(UuidGenerator);
@@ -33,16 +32,19 @@ describe('CREATE USER', () => {
     test('Should be able to create new User', async () => {
         when(mockedUserRepository.create(anyOfClass(User))).thenResolve(mockedUser);
 
-        await expect(userCreator.create(new User('a', 'b', 'c', 'd', 'e'))).resolves.toBeInstanceOf(User);
+        await expect(userCreator.create(new User('x', 'x', 'x', 'x', 'x'))).resolves.toBeInstanceOf(User);
         verify(mockedUserRepository.create(anyOfClass(User))).once();
     });
 
     test('Should throws an Error if some fields are missing', async () => {
-        await expect(userCreator.create(new User('a', 'b', 'c', 'd', ''))).rejects.toThrowError('All user fields are not indicated!');
+        await expect(userCreator.create(new User('x', 'x', 'x', 'x', ''))).rejects.toThrowError('All user fields are not indicated!');
         verify(mockedUserRepository.create(anyOfClass(User))).once();
     });
 
     test('Should throws an error if the user already exists', async () => {
+        const fakeArrayOfUsers: User[] = [];
+        fakeArrayOfUsers.push(anyOfClass(User), anyOfClass(User));
+
         when(mockedUserRepository.findByEmail(mockedUser.email)).thenResolve(mockedUser);
         when(mockedUserRepository.create(new User('a', 'b', 'c', mockedUser.email, 'e'))).thenResolve(mockedUser);
 
