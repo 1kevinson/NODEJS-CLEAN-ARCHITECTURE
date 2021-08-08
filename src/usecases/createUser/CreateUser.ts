@@ -18,7 +18,7 @@ export class CreateUser {
             throw new UserValidationException('All user fields are not indicated!');
         }
 
-        if (this.repository.findByEmail(user.email)?.email === user.email) {
+        if ((await this.repository.findByEmail(user.email))?.email === user.email) {
             throw new UserAlreadyExistsException(`user with email ${user.email} already exists`);
         }
 

@@ -5,15 +5,18 @@ export class FindUser {
 
     constructor(private readonly repository: UserRepository) { }
 
-    public findById(id: string): User | undefined {
-        return this.repository.findById(id);
+    async findById(id: string): Promise<User> {
+        const foundedUser = await this.repository.findById(id);
+        return foundedUser;
     }
 
-    public findByEmail(email: string): User | undefined {
-        return this.repository.findByEmail(email);
+    async findByEmail(email: string): Promise<User> {
+        const foundedUser = await this.repository.findByEmail(email);
+        return foundedUser;
     }
 
-    public findAllUsers(): User[] {
-        return this.repository.findAllUsers();
+    async findAllUsers(): Promise<User[]> {
+        const foundedListOfUser = await this.repository.findAllUsers();
+        return foundedListOfUser;
     }
 }

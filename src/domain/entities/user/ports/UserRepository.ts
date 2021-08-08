@@ -4,9 +4,9 @@ export interface UserRepository {
 
     create(user: User): Promise<User>;
 
-    findById(id: string): User | undefined;
+    findById(id: string): Promise<User>;
     
-    findByEmail(email: string): User | undefined;
+    findByEmail(email: string): Promise<User>;
 
-    findAllUsers(): User[];
+    findAllUsers(): Promise<User[]>;
 }
