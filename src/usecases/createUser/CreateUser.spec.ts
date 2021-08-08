@@ -44,9 +44,11 @@ describe('CREATE USER', () => {
     test('Should throws an error if the user already exists', async () => {
         const fakeArrayOfUsers: User[] = [];
         fakeArrayOfUsers.push(anyOfClass(User), anyOfClass(User));
+        console.log(fakeArrayOfUsers);
+        
 
         when(mockedUserRepository.findByEmail(mockedUser.email)).thenResolve(mockedUser);
-        when(mockedUserRepository.create(new User('a', 'b', 'c', mockedUser.email, 'e'))).thenResolve(mockedUser);
+        when(mockedUserRepository.create(new User('a', 'b', 'c', mockedUser.email, 'e'))).thenReject();
 
         await expect(userCreator.create(new User('a', 'b', 'c', mockedUser.email, 'e'))).rejects.toThrowError(`user with email ${mockedUser.email} already exists`);
         verify(mockedUserRepository.create(anyOfClass(User))).called();
