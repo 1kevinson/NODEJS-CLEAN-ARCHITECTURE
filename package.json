@@ -37,6 +37,7 @@
     "hash.js": "^1.1.7",
     "hazelcast-client": "^4.2.0",
     "lowdb": "^2.1.0",
+    "moment": "^2.29.1",
     "node-notifier": "^10.0.0",
     "uuid-by-string": "^3.0.4",
     "winston": "^3.3.3"
