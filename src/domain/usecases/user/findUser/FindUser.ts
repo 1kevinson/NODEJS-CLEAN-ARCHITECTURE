@@ -1,5 +1,5 @@
-import { UserRepository } from "../../domain/entities/user/ports/UserRepository";
-import { User } from "../../domain/entities/user/User";
+import { UserRepository } from "../../../entities/user/ports/UserRepository";
+import { User } from "../../../entities/user/User";
 
 export class FindUser {
 

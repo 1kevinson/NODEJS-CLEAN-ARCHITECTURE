@@ -1,9 +1,9 @@
-import { UserRepository } from "../../domain/entities/user/ports/UserRepository";
+import { UserRepository } from "../../../domain/entities/user/ports/UserRepository";
 import { anyString, instance, mock, reset, verify, when } from 'ts-mockito'
-import { InMemoryUserRepository } from "../../adapters/repository/InMemoryUserRepository";
-import { FindUser } from "./FindUser";
-import { User } from "../../domain/entities/user/User";
-import { UserNotFoundException } from "../../domain/entities/user/exceptions/UserNotFoundException";
+import { InMemoryUserRepository } from "../../../adapters/repository/InMemoryUserRepository";
+import { FindUser } from "../../../domain/usecases/user/findUser/FindUser";
+import { User } from "../../../domain/entities/user/User";
+import { UserNotFoundException } from "../../../domain/entities/user/exceptions/UserNotFoundException";
 
 let mockedUserRepository: UserRepository = mock(InMemoryUserRepository);
 let repository: UserRepository = instance(mockedUserRepository);

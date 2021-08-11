@@ -2,8 +2,8 @@ import { IdGenerator } from "../../domain/entities/user/ports/IdGenerator";
 import { IUserService } from "../../domain/entities/user/ports/IUserService";
 import { PasswordEncoder } from "../../domain/entities/user/ports/PasswordEncoder";
 import { UserRepository } from "../../domain/entities/user/ports/UserRepository";
-import { CreateUser } from "../../usecases/createUser/CreateUser";
-import { FindUser } from "../../usecases/findUser/FindUser";
+import { CreateUser } from "../../domain/usecases/user/createUser/CreateUser";
+import { FindUser } from "../../domain/usecases/user/findUser/FindUser";
 
 export class UserService implements IUserService {
 
