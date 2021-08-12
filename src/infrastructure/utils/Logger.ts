@@ -5,9 +5,8 @@ const logger = (req: express.Request, res: express.Response, next: express.NextF
     const currentDateTime = moment().format('dddd h:mma D MMM YYYY');
     const method = req.method;
     const url = req.protocol + '://' + req.get('host') + req.url;
-    const status = res.statusCode;
 
-    console.log(`${currentDateTime} | METHOD: ${method} | URL: ${url} | STATUS: ${status}`);
+    console.log(`${currentDateTime} | METHOD: ${method} | URL: ${url} `);
     next();
 };
 

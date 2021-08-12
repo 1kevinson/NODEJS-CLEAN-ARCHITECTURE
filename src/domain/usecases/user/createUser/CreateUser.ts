@@ -15,12 +15,12 @@ export class CreateUser {
 
     public async create(user: User): Promise<User> {
         if (!UserValidator.validateCreateUser(user)) {
-            throw new UserValidationException('All user fields are not indicated!');
+            throw new UserValidationException(400,'All user fields are not indicated!');
         }
 
         if (this.repository.findAllUsers.length > 0 &&
             (await (this.repository.findByEmail(user.email)))?.email === user.email) {
-            throw new UserAlreadyExistsException(`user with email ${user.email} already exists`);
+            throw new UserAlreadyExistsException(409,`user with email ${user.email} already exists`);
         }
 
         const userToSave = new User(

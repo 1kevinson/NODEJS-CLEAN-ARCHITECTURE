@@ -15,7 +15,7 @@ export class InMemoryUserRepository implements UserRepository {
             if (this.inMemoryData.indexOf(user) !== -1) {
                 resolve(user);
             } else {
-                reject(new UserNotCreatedException(`User with email: ${user.email} was not inserted in DB !`));
+                reject(new UserNotCreatedException(422,`User with email: ${user.email} was not inserted in DB !`));
             }
         });
     }
@@ -26,7 +26,7 @@ export class InMemoryUserRepository implements UserRepository {
             if (searchedUser !== undefined) {
                 resolve(searchedUser);
             } else {
-                reject(new UserNotFoundException(`User with id => ${id} was not found !`));
+                reject(new UserNotFoundException(404,`User with id => ${id} was not found !`));
             }
         });
     }
@@ -37,7 +37,7 @@ export class InMemoryUserRepository implements UserRepository {
             if (searchedUser !== undefined) {
                 resolve(searchedUser);
             } else {
-                reject(new UserNotFoundException(`User with email => ${email} was not found !`));
+                reject(new UserNotFoundException(404,`User with email => ${email} was not found !`));
             }
         });
     }

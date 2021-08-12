@@ -1,5 +1,9 @@
 export class UserNotFoundException extends Error {
-    constructor(message: string) {
+    constructor(private readonly statusCode: number, message: string) {
         super(message);
     };
+
+    get status(): number {
+        return this.statusCode;
+    }
 }
