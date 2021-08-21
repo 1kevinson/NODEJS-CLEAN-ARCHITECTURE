@@ -33,12 +33,20 @@ describe('CREATE USER', () => {
     test('Should be able to create new User', async () => {
         when(mockedUserRepository.create(anyOfClass(User))).thenResolve(mockedUser);
 
-        await expect(userCreator.create(new User('x', 'x', 'x', 'x', 'x'))).resolves.toBeInstanceOf(User);
+        await expect(userCreator.create(new User('x', 'x', 'x', 'x', 'x'))).resolves.toBe(mockedUser);
         verify(mockedUserRepository.create(anyOfClass(User))).once();
     });
 
     test('Should throws an Error if some fields are missing', async () => {
         await expect(userCreator.create(new User('x', 'x', 'x', 'x', ''))).rejects.toThrowError('All user fields are not indicated!');
         verify(mockedUserRepository.create(anyOfClass(User))).once();
+    });
+
+    test('Should throw an error if user already exists', async () => {
+        when(mockedUserRepository.findAllUsers()).thenResolve([mockedUserArray[1]]);
+
+        await expect(userCreator.create(mockedUserArray[1])).rejects.toThrowError(
+            `user with email ${mockedUserArray[1].email} already exists`
+        );
     });
 });

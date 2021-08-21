@@ -22,6 +22,7 @@ export class InMemoryUserRepository implements UserRepository {
 
     async findById(id: string): Promise<User> {
         const searchedUser = this.inMemoryData.find(u => u.id === new UuidGenerator().generate(id));
+
         return new Promise<User>((resolve, reject) => {
             if (searchedUser !== undefined) {
                 resolve(searchedUser);
@@ -33,6 +34,7 @@ export class InMemoryUserRepository implements UserRepository {
 
     async findByEmail(email: string): Promise<User> {
         const searchedUser = this.inMemoryData.find(u => u.email === email);
+
         return new Promise<User>((resolve, reject) => {
             if (searchedUser !== undefined) {
                 resolve(searchedUser);
@@ -43,7 +45,9 @@ export class InMemoryUserRepository implements UserRepository {
     }
 
     async findAllUsers(): Promise<User[]> {
-        return [...this.inMemoryData];
+        return new Promise<User[]>((resolve, reject) => {
+            resolve([...this.inMemoryData])
+        })
     }
 
 }

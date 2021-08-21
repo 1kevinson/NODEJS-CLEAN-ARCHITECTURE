@@ -1,0 +1,8 @@
+{
+   "User": {
+      "database": "cleanDB-SQL",
+      "username": "parallax",
+      "password": "parallax33",
+      "host": "localhost"
+   }
+}
