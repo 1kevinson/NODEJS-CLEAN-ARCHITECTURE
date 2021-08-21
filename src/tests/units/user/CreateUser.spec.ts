@@ -18,11 +18,11 @@ let passwordEncoder: PasswordEncoder = instance(mockedPasswordEncoder);
 
 const userCreator = new CreateUser(repository, idGenerator, passwordEncoder);
 
-const mockedUser = new User(idGenerator.generate(anyString()), 'Arsene', 'Kevin', 'kko@gmail.com', passwordEncoder.encode(anyString()));
+const mockedUser = new User( 'Arsene', 'Kevin', 'kko@gmail.com', passwordEncoder.encode(anyString()));
 const mockedUserArray: User[] = [];
 mockedUserArray.push(
-    new User(idGenerator.generate(anyString()), 'Arsene', 'Kevin', 'kkomo@gmail.com', passwordEncoder.encode(anyString())),
-    new User(idGenerator.generate(anyString()), 'Arsene', 'Kevin', 'kkolo@gmail.com', passwordEncoder.encode(anyString()))
+    new User( 'Arsene', 'Kevin', 'kkomo@gmail.com', passwordEncoder.encode(anyString())),
+    new User( 'Arsene', 'Kevin', 'kkolo@gmail.com', passwordEncoder.encode(anyString()))
 );
 
 afterAll(() => {
@@ -31,14 +31,17 @@ afterAll(() => {
 
 describe('CREATE USER', () => {
     test('Should be able to create new User', async () => {
+        when(mockedUserRepository.findAllUsers()).thenResolve([]);
         when(mockedUserRepository.create(anyOfClass(User))).thenResolve(mockedUser);
 
-        await expect(userCreator.create(new User('x', 'x', 'x', 'x', 'x'))).resolves.toBe(mockedUser);
+        await expect(userCreator.create(new User('x', 'x', 'x', 'x'))).resolves.toBe(mockedUser);
         verify(mockedUserRepository.create(anyOfClass(User))).once();
     });
 
     test('Should throws an Error if some fields are missing', async () => {
-        await expect(userCreator.create(new User('x', 'x', 'x', 'x', ''))).rejects.toThrowError('All user fields are not indicated!');
+        when(mockedUserRepository.findAllUsers()).thenResolve([]);
+
+        await expect(userCreator.create(new User( 'x', 'x', 'x', ''))).rejects.toThrowError('All user fields are not indicated!');
         verify(mockedUserRepository.create(anyOfClass(User))).once();
     });
 

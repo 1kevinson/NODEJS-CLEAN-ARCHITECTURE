@@ -24,7 +24,6 @@ export class CreateUser {
         }
 
         const userToSave = new User(
-            this.idGenerator.generate(user.id),
             user.firstname,
             user.lastname,
             user.email,
@@ -38,6 +37,6 @@ export class CreateUser {
 
     private async userAlreadyExists(user: User) {
         const users = await this.repository.findAllUsers();
-        return users?.includes(user, 0);
+        return users.find(u => u)?.email === user.email;
     }
 }

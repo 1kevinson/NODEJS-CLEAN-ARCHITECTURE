@@ -34,6 +34,7 @@
     "debug": "^3.2.7",
     "deep-equal": "^2.0.5",
     "express": "^4.17.1",
+    "express-validator": "^6.12.1",
     "express-winston": "^4.1.0",
     "hash.js": "^1.1.7",
     "hazelcast-client": "^4.2.0",

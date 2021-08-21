@@ -12,9 +12,8 @@ const userController = new UserController(new UserService(
     new UuidGenerator(),
     new Sha256Encoder()));
 
-
 router.get('/', exceptionCatcher(userController.getUsers));
-router.get('/:userId', exceptionCatcher(userController.getUserById));
+router.get('/:userEmail', exceptionCatcher(userController.getUserByEmail));
 
 router.post('/', exceptionCatcher(userController.createUser));
 

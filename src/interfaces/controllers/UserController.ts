@@ -11,13 +11,9 @@ export class UserController {
     private readonly userFinder = this.userService.findUser();
 
     createUser = async (req: express.Request, res: express.Response): Promise<any> => {
-        const id = req.body.id;
-        const firstname = req.body.firstname;
-        const lastname = req.body.lastname;
-        const email = req.body.email;
-        const password = req.body.password;
+        const {firstname, lastname, email, password} = req.body;
 
-        await this.userCreator.create(new User(id, firstname, lastname, email, password)).then((result) => {
+        await this.userCreator.create(new User(firstname, lastname, email, password)).then((result) => {
             return res.status(201).json({
                 message: 'Post successfully created !',
                 post: {
@@ -41,8 +37,8 @@ export class UserController {
         });
     };
 
-    getUserById = async (req: express.Request, res: express.Response): Promise<any> => {
-        const user = await this.userFinder.findById(req.params.userId);
+    getUserByEmail = async (req: express.Request, res: express.Response): Promise<any> => {
+        const user = await this.userFinder.findByEmail(req.params.userEmail);
 
         res.status(200).json({
             data: user,
